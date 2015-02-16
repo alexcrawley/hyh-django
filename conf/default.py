@@ -100,14 +100,3 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-
-HOMEPAGE_URL = '/'
-from django.core.urlresolvers import reverse_lazy
-LOGIN_URL = reverse_lazy('users:login')
-LOGIN_REDIRECT_URL = HOMEPAGE_URL
-COOKIES_DELETE_ON_LOGOUT = []
-
-# Paths
-IMAGE_FOLDER = 'images/products/%Y/%m/'
-
