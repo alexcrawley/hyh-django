@@ -66,10 +66,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-AUTHENTICATION_BACKENDS = (
-    'apps.users.auth_backends.EmailBackend',
-)
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
