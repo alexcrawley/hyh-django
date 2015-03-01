@@ -87,6 +87,7 @@ INSTALLED_APPS = (
     'corsheaders',
 
     'apps.events',
+    'apps.users',
 )
 
 ROOT_URLCONF = 'urls'
@@ -108,5 +109,6 @@ REST_FRAMEWORK = {
     'PAGINATE_BY': 10
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_ALLOW_ALL=True
+AUTH_USER_MODEL = 'users.User'
