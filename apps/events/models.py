@@ -24,8 +24,8 @@ class EventUserResponse(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def __unicode__(self):
-    #     return self.user.email + ' - ' + self.event
+    def __unicode__(self):
+        return str(self.user) + ' - ' + str(self.event)
 
     class Meta:
         unique_together = ('user', 'event')
