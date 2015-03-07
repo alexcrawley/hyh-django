@@ -76,3 +76,28 @@ class TestRegisterUser(TestCase):
 
         # First user is still the only user.
         self.assertEqual(User.objects.get(), user)
+
+
+class TestAuthTokenUser(TestCase):
+    def test_get_token_for_user(self):
+        user = User.objects.create_user(
+            email='test@example.com',
+            username='test@example.com',
+            password='testing'
+            )
+
+        post_url = reverse('api_token_auth')
+        post_data = {
+            'email': 'test@example.com',
+            'username': 'test@example.com',
+            'password': 'testing',
+        }
+
+        response = self.client.post(post_url, post_data, format='json')
+
+        expected_response_data = {
+            "token": user.auth_token.key
+        }
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, expected_response_data)
