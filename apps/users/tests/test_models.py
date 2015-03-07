@@ -8,13 +8,6 @@ class TestUserModel(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(username='testing', password='testing')
-        self.create_events(5)
-
-    def create_events(self, number):
-        for i in range(1, number+1):
-            title = str(i) + '. Test Event'
-            img = 'not_real_image'
-            Event.objects.create(title=title, img=img)
 
     def test_like_event(self):
         self.assertItemsEqual(self.user.liked_events, [])
