@@ -78,7 +78,7 @@ class TestRegisterUser(TestCase):
         self.assertEqual(User.objects.get(), user)
 
 
-class TestAuthTokenUser(TestCase):
+class TestAuthToken(TestCase):
     def test_get_token_for_user(self):
         user = User.objects.create_user(
             email='test@example.com',
