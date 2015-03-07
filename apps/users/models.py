@@ -6,6 +6,8 @@ from apps.events.models import EventUserResponse
 
 
 class User(AbstractUser):
+    REQUIRED_FIELDS = ['email']
+
     events = models.ManyToManyField(
         'events.Event', through='events.EventUserResponse')
 

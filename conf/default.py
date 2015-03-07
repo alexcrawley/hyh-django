@@ -83,9 +83,15 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+
+    # Rest framework
     'rest_framework',
+    'rest_framework.authtoken',
+
+    # Other 3rd party
     'corsheaders',
 
+    # haveyouheard
     'apps.events',
     'apps.users',
 )

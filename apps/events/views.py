@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
 from apps.events.models import Event
 from apps.events.serializers import EventSerializer
@@ -11,3 +11,7 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.order_by('?')
     serializer_class = EventSerializer
     paginate_by_param = 'page_size'
+
+
+class SavedEventsView(generics.ListCreateAPIView):
+    pass
