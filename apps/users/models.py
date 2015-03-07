@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-from apps.constants import LIKE, DISLIKE
+from apps.events import constants
 from apps.events.models import EventUserResponse
 
 
@@ -18,20 +18,20 @@ class User(AbstractUser):
         EventUserResponse.objects.create(
             user=self,
             event=event,
-            response=LIKE,
+            response=constants.LIKE,
             )
 
     def dislike_event(self, event):
         EventUserResponse.objects.create(
             user=self,
             event=event,
-            response=DISLIKE,
+            response=constants.DISLIKE,
             )
 
     @property
     def liked_events(self):
-        return self.events.filter(user_responses__response=LIKE)
+        return self.events.filter(user_responses__response=constants.LIKE)
 
     @property
     def disliked_events(self):
-        return self.events.filter(user_responses__response=DISLIKE)
+        return self.events.filter(user_responses__response=constants.DISLIKE)
