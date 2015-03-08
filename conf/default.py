@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'corsheaders',
 
     # haveyouheard
+    'apps.common',
     'apps.events',
     'apps.users',
 )
@@ -111,7 +112,9 @@ USE_TZ = True
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'PAGINATE_BY': 10
 }
 

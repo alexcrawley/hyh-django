@@ -1,7 +1,11 @@
 from rest_framework import viewsets
 
+from apps.common import constants
 from apps.users.models import User
-from apps.users.serializers import UserSerializer, RegisterUserSerializer
+from apps.users.serializers import (
+    UserSerializer,
+    RegisterUserSerializer
+    )
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -11,7 +15,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
     def get_serializer_class(self, *args, **kwargs):
-        if self.action == 'create':
+        if self.action == constants.CREATE:
             # Register requires additional validation that the user does
             # not already exist.
             return RegisterUserSerializer

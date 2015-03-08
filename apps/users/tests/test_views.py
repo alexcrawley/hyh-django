@@ -101,3 +101,7 @@ class TestAuthToken(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, expected_response_data)
+
+
+class TestPermissions(TestCase):
+    pass

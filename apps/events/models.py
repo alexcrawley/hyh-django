@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.constants import LIKE, DISLIKE
+from apps.events.constants import LIKE, DISLIKE
 
 
 class Event(models.Model):

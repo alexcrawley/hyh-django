@@ -2,12 +2,13 @@ from rest_framework import routers
 
 from django.conf.urls import url, include
 
-from apps.events.views import EventViewSet
+from apps.events.views import EventViewSet, EventUserResponseViewSet
 from apps.users.views import UserViewSet
 from apps.users import urls as users_urls
 
 router = routers.DefaultRouter()
 router.register(r'events', EventViewSet)
+router.register(r'eventuserresponses', EventUserResponseViewSet)
 router.register(r'users', UserViewSet)
 
 # Wire up our API using automatic URL routing.
@@ -15,5 +16,8 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^', include(users_urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+
+    url(r'^api-auth/',
+        include('rest_framework.urls', namespace='rest_framework')
+        )
 ]
