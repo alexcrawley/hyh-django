@@ -26,6 +26,3 @@ class EventUserResponse(models.Model):
 
     def __unicode__(self):
         return str(self.user) + ' - ' + str(self.event)
-
-    class Meta:
-        unique_together = ('user', 'event')

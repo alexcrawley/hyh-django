@@ -9,10 +9,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 import os
-# import sys
-
-# PROJECT_ROOT = os.path.dirname(__file__)
-# sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -116,7 +112,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
