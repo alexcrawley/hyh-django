@@ -26,16 +26,16 @@ class EventUserResponseViewSet(viewsets.ModelViewSet):
 
         user = self.request.user
         if not user.is_superuser:
-            queryset = queryset.filter(user=user.pk)
+            queryset = queryset.filter(user=user)
 
         return queryset
 
-    def create(self):
-        user = self.request.user
+    def create(self, request, *args, **kwargs):
+        user = request.user
 
         if not user.is_superuser:
             # Users should only be able to create responses for
             # themselves.
             self.request.data.update(**{'user': user.pk})
 
-        return super(EventUserResponseViewSet, self).create()
+        return super(EventUserResponseViewSet, self).create(request, *args, **kwargs)

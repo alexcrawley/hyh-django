@@ -1,19 +1,11 @@
 from rest_framework.permissions import BasePermission
 
 
-class IsSuperUser(BasePermission):
+class IsSuperUserOrAnonymous(BasePermission):
     """
-    Allows access only to superusers.
-    """
-
-    def has_permission(self, request, view):
-        return request.user and request.user.is_superuser
-
-
-class IsAnonymous(BasePermission):
-    """
-    Allows access only to superusers.
+    Allows access only to anonymous or superusers.
     """
 
     def has_permission(self, request, view):
-        return request.user and request.user.is_anonymous
+        user = request.user
+        return user and (user.is_anonymous or user.superuser)

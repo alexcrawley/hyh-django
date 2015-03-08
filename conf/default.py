@@ -115,7 +115,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-    'PAGINATE_BY': 10
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'PAGINATE_BY': 10,
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
