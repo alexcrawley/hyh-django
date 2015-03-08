@@ -17,7 +17,7 @@ class EventViewSet(viewsets.ModelViewSet):
 
 
 class EventUserResponseViewSet(viewsets.ModelViewSet):
-    queryset = EventUserResponse.objects.order_by('?')
+    queryset = EventUserResponse.objects.all()
     serializer_class = EventUserResponseSerializer
     paginate_by_param = 'page_size'
 

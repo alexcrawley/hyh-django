@@ -111,7 +111,7 @@ class TestUserEventResponses(TestCase):
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'], expected_reponse_data)
 
-    def test_superusers_can_only_view_all_responses(self):
+    def test_superusers_can_view_all_responses(self):
         user1_event = EventUserResponse.objects.create(
             user=self.regular_user1,
             event=self.event1,
