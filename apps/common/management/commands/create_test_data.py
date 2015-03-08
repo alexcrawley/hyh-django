@@ -9,6 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.create_users()
         self.create_events()
+        self.like_events()
 
     def create_users(self):
         try:
@@ -42,3 +43,8 @@ class Command(BaseCommand):
             title='Rooftop cinema?',
             img='http://1.bp.blogspot.com/-2SzFzltjliM/Ua8oFQuBviI/AAAAAAAAADM/w7mOBWrbT-8/s1600/RooftopFilmClub.jpg'
             )
+
+    def like_events(self):
+        for user in User.objects.all():
+            for event in Event.objects.all():
+                user.like_event(event)
