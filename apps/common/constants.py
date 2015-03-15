@@ -1,4 +1,4 @@
-# Actions
+# ViewSet Actions
 LIST = 'list'
 RETRIEVE = 'retrieve'
 CREATE = 'create'

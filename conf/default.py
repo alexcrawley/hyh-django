@@ -89,8 +89,9 @@ INSTALLED_APPS = (
 
     # haveyouheard
     'apps.common',
-    'apps.events',
     'apps.users',
+    'apps.events',
+    'apps.tickets',
 )
 
 ROOT_URLCONF = 'urls'

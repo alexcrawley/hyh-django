@@ -8,4 +8,4 @@ class IsSuperUserOrAnonymous(BasePermission):
 
     def has_permission(self, request, view):
         user = request.user
-        return user and (user.is_anonymous or user.superuser)
+        return user and (user.is_anonymous or user.is_superuser)
