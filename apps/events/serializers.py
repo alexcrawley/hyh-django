@@ -10,6 +10,8 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class EventUserResponseSerializer(serializers.ModelSerializer):
+    event = EventSerializer()
+
     class Meta:
         model = EventUserResponse
-        fields = ('id', 'user', 'event', 'response')
+        fields = ('id', 'user', 'event', 'response',)

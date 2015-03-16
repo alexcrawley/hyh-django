@@ -1,10 +1,8 @@
 from rest_framework import viewsets
 
+
 from apps.events.models import Event, EventUserResponse
-from apps.events.serializers import (
-    EventSerializer,
-    EventUserResponseSerializer
-    )
+from apps.events import serializers
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -12,13 +10,16 @@ class EventViewSet(viewsets.ModelViewSet):
     API endpoint that allows events to be viewed or edited.
     """
     queryset = Event.objects.order_by('?')
-    serializer_class = EventSerializer
+    serializer_class = serializers.EventSerializer
     paginate_by_param = 'page_size'
+
+    def get_queryset(self):
+        return self.request.user.get_events()
 
 
 class EventUserResponseViewSet(viewsets.ModelViewSet):
     queryset = EventUserResponse.objects.all()
-    serializer_class = EventUserResponseSerializer
+    serializer_class = serializers.EventUserResponseSerializer
     paginate_by_param = 'page_size'
 
     def get_queryset(self):
