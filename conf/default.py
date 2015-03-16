@@ -68,6 +68,10 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'haveyouheard'
+}
+
 # Application definition
 INSTALLED_APPS = (
     'suit',  # Pretty admin
