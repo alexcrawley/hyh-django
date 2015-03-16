@@ -27,14 +27,14 @@ class User(AbstractUser):
         return algorithms[test_group.algorithm]().get_events_for_user(self)
 
     def like_event(self, event):
-        EventUserResponse.objects.create(
+        return EventUserResponse.objects.create(
             user=self,
             event=event,
             response=events_constants.LIKE,
             )
 
     def dislike_event(self, event):
-        EventUserResponse.objects.create(
+        return EventUserResponse.objects.create(
             user=self,
             event=event,
             response=events_constants.DISLIKE,

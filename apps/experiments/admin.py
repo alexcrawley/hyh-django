@@ -12,7 +12,13 @@ class TestGroupInline(admin.TabularInline):
 
 class ExperimentAdmin(admin.ModelAdmin):
     inlines = [TestGroupInline]
+    list_display = [
+        'name',
+        'experiment_type',
+        'population_percentage',
+        'start_date',
+        'end_date'
+        ]
 
 
 admin.site.register(Experiment, ExperimentAdmin)
-admin.site.register(TestGroup)
