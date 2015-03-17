@@ -64,9 +64,7 @@ class Experiment(models.Model):
         return self.experiment_type + ' - ' + self.name
 
     def get_next_test_group(self):
-        num_groups = self.test_groups.count()
-        group_index = random.randint(0, num_groups - 1)
-        return self.test_groups.all()[group_index]
+        return self.test_groups.order_by('-num_users')[0]
 
 
 class TestGroupManager(models.Manager):
