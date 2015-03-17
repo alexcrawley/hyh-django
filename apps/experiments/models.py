@@ -1,9 +1,39 @@
-import collections
-
+import random
 from django.db import models
-from django.db.models import Sum
 
 from apps.experiments import constants
+
+
+class ExperimentManager(models.Manager):
+    def get_for_user(self, user, experiment_type):
+        """
+            Determine if this user will take part in the active experiment.
+        """
+        try:
+            experiment = Experiment.objects.get(
+                active_status=constants.ACTIVE_STATUS,
+                experiment_type=experiment_type
+                )
+        except Experiment.DoesNotExist:
+            experiment = None
+        else:
+            percentage = experiment.population_percentage
+            random_number = random.randint(1, 100)
+
+            if not random_number <= percentage:
+                experiment = None
+        finally:
+            if experiment is None:
+                return Experiment.objects.get_fallback(
+                    user, experiment_type)
+            else:
+                return experiment
+
+    def get_fallback(self, user, experiment_type):
+        return Experiment.objects.get(
+            active_status=constants.FALLBACK,
+            experiment_type=experiment_type
+            )
 
 
 class Experiment(models.Model):
@@ -11,45 +41,32 @@ class Experiment(models.Model):
         (constants.EVENTS_ALGORITHM_EXPERIMENT, 'Compare events algorithms.'),
         )
 
+    ACTIVE_STATUS = (
+        (constants.ACTIVE_STATUS, 'Active'),
+        (constants.INACTIVE_STATUS, 'Inactive'),
+        (constants.FALLBACK, 'Fallback'),
+        )
+
     experiment_type = models.CharField(
         choices=EXPERIMENT_TYPES, max_length=128)
+
+    active_status = models.CharField(
+        choices=ACTIVE_STATUS, max_length=128)
 
     name = models.CharField(primary_key=True, max_length=128)
     description = models.TextField(default="", blank=True, null=True)
 
     population_percentage = models.IntegerField()
 
-    start_date = models.DateTimeField(blank=True, null=True)
-    end_date = models.DateTimeField(blank=True, null=True)
+    objects = ExperimentManager()
 
     def __unicode__(self):
         return self.experiment_type + ' - ' + self.name
 
-    @property
-    def num_users_in_experiment(self):
-        return self.test_groups.aggregate(Sum('num_users'))['num_users__sum']
-
     def get_next_test_group(self):
-        # #FIXME - ORDERED DICTSDICTS
-
-        # # Which test group is furthest below it's target percentage.
-        # total_users = self.num_users_in_experiment
-
-        # test_groups_dict = {}
-        # for test_group in self.test_groups.all():
-        #     target = test_group.target_percentage
-        #     actual = total_users / test_group.num_users
-
-        #     diff = target - actual
-
-        #     if diff > 0:
-        #         test_groups_dict[test_group.pk] = diff
-
-        # # Get the furthest away.
-        # ordered = collections.OrderedDict(sorted(test_groups_dict.items()))
-
-        # return self.test_groups.get(pk=ordered[0])
-        return self.test_groups.all()[0]
+        num_groups = self.test_groups.count()
+        group_index = random.randint(0, num_groups - 1)
+        return self.test_groups.all()[group_index]
 
 
 class TestGroupManager(models.Manager):
@@ -65,9 +82,7 @@ class TestGroupManager(models.Manager):
             return test_group
 
     def assign_user_to_test_group(self, user, experiment_type):
-        experiment = Experiment.objects.get(
-            experiment_type=experiment_type
-            )
+        experiment = Experiment.objects.get_for_user(user, experiment_type)
 
         test_group = experiment.get_next_test_group()
 
@@ -90,7 +105,5 @@ class TestGroup(models.Model):
     algorithm = models.CharField(choices=ALGORITHM_CHOICES, max_length=256)
     users = models.ManyToManyField('users.User', related_name='test_groups')
     num_users = models.IntegerField(default=0)  # Denormalised for speed.
-
-    target_percentage = models.IntegerField()
 
     objects = TestGroupManager()

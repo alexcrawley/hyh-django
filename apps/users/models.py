@@ -16,7 +16,7 @@ class User(AbstractUser):
         'events.Event', through='events.EventUserResponse')
 
     def __unicode__(self):
-        return 'hello'
+        return self.username
 
     def get_events(self):
         test_group = TestGroup.objects.get_for_experiment(

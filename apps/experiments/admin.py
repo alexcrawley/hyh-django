@@ -6,7 +6,7 @@ from apps.experiments.models import Experiment, TestGroup
 class TestGroupInline(admin.TabularInline):
     model = TestGroup
     readonly_fields = ['num_users']
-    fields = ['algorithm', 'num_users', 'target_percentage']
+    fields = ['algorithm', 'num_users']
     extra = 1
 
 
@@ -17,8 +17,6 @@ class ExperimentAdmin(admin.ModelAdmin):
         'name',
         'experiment_type',
         'population_percentage',
-        'start_date',
-        'end_date'
         ]
 
     list_filter = [
