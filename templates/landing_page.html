@@ -7,7 +7,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet'>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>haveyouheard early access</title>
+<title>Haveyouheard Early Access</title>
 <meta name="description" content="Have you heard BETA">
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
@@ -55,9 +55,10 @@
             <h2>Subscribe Now</h2>
             <!--sub-form-->
             <div class="sub-form">
-              <form role="form" id="mc-form" action="http://test.us3.list-manage1.com/subscribe/post-json?u=9666c25a337f497687875a388&amp;id=fa41845374&amp;c=?">
-                <input type="email" placeholder="Email Address" required value="" name="EMAIL">
-                <button type="submit" class="button" id="mc-subscribe" value="Subscribe" name="subscribe">GET ACCESS</button>
+              <form role="form" method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button" name="subscribe">GET ACCESS</button>
               </form>
               <p class="terms">* We won’t spam</p>
               <p id="mc-notification"></p>
