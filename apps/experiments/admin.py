@@ -12,12 +12,21 @@ class TestGroupInline(admin.TabularInline):
 
 class ExperimentAdmin(admin.ModelAdmin):
     inlines = [TestGroupInline]
+
     list_display = [
         'name',
         'experiment_type',
         'population_percentage',
         'start_date',
         'end_date'
+        ]
+
+    list_filter = [
+        'experiment_type',
+        ]
+
+    search_fields = [
+        'name'
         ]
 
 

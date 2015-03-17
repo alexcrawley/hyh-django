@@ -8,10 +8,13 @@ django-extensions==1.5.0
 django-suit==0.2.12
 django-toolbelt==0.0.1
 djangorestframework==3.0.5
+docopt==0.4.0
 gunicorn==19.2.1
 ipdb==0.8
 ipython==2.4.1
+mailchimp==2.0.9
 psycopg2==2.6
+requests==2.6.0
 six==1.9.0
 sqlparse==0.1.14
 static3==0.5.1

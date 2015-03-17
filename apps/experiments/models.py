@@ -22,6 +22,9 @@ class Experiment(models.Model):
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
 
+    def __unicode__(self):
+        return self.experiment_type + ' - ' + self.name
+
     @property
     def num_users_in_experiment(self):
         return self.test_groups.aggregate(Sum('num_users'))['num_users__sum']

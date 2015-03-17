@@ -87,6 +87,7 @@ INSTALLED_APPS = (
     # Rest framework
     'rest_framework',
     'rest_framework.authtoken',
+    'mailchimp',
 
     # Other 3rd party
     'corsheaders',
@@ -97,6 +98,7 @@ INSTALLED_APPS = (
     'apps.events',
     'apps.tickets',
     'apps.experiments',
+    'apps.notifications',
 )
 
 ROOT_URLCONF = 'urls'
@@ -127,3 +129,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'users.User'
+
+# Production key, but test list.
+MAILCHIMP_API_KEY = '2e175c4f1d007c9a1750e2d7993eb626-us10'
+MAILCHIMP_MAIN_LIST_ID = '075d485454'

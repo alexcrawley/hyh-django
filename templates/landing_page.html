@@ -1,0 +1,246 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet'>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>haveyouheard early access</title>
+<meta name="description" content="Have you heard BETA">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<!--hero-unit-->
+<div class="hero-unit"> 
+  
+  <!--HTML5 Video-->
+  <video autoplay loop muted id="bgvid">
+    <source src="{% static 'video/vb.mp4' %}" type="video/mp4">
+    <source src="{% static 'video/vb.ogv' %}" type="video/ogg">
+    <source src="{% static 'video/vb.webm' %}" type="video/webm">  
+  </video>
+  <!--HTML5 Video end-->
+  
+  <div class="overlay"></div>
+  <!--container-->
+  <div class="container">
+    <header class="row">
+      <div class="col-md-6 col-sm-6"> 
+        <!--logo-->
+        <div class="logo"> <img src="{% static 'img/logo.png' %}" data-at2x="{% static 'img/logo@2x.png' %}" alt="logo"> </div>
+        <!--logo end--> 
+      </div>
+      <div class="col-md-6 col-sm-6 clearfix"> 
+        <!--social-->
+        <ul class="social text-center">
+          <li><a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="https://plus.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+        </ul>
+        <!--social end--> 
+      </div>
+    </header>
+    
+    <!--cta-->
+    <div class="cta">
+      <div class="row">
+        <div class="col-md-6 center-block">
+          <header class="welcome-message text-center">
+            <h1>Get <span class="highlight">Early Access</span></h1>
+            <h2>Subscribe Now</h2>
+            <!--sub-form-->
+            <div class="sub-form">
+              <form role="form" id="mc-form" action="http://test.us3.list-manage1.com/subscribe/post-json?u=9666c25a337f497687875a388&amp;id=fa41845374&amp;c=?">
+                <input type="email" placeholder="Email Address" required value="" name="EMAIL">
+                <button type="submit" class="button" id="mc-subscribe" value="Subscribe" name="subscribe">GET ACCESS</button>
+              </form>
+              <p class="terms">* We won’t spam</p>
+              <p id="mc-notification"></p>
+            </div>
+            <!--sub-form end--> 
+          </header>
+        </div>
+      </div>
+    </div>
+    <!--cta end--> 
+    
+  </div>
+  <!--container end--> 
+  
+</div>
+<!--hero-unit end--> 
+
+<!--countdown timer-->
+<div class="timer section-spacing">
+  <div class="container">
+    <h2 class="text-center">TIME LEFT FOR LAUNCH</h2>
+    <div class="row">
+      <div class="col-md-12"> 
+        <!-- Countdown-->
+        <ul class="countdown text-center">
+          <li class="slide-left"> <span class="days">00</span>
+            <p class="days_ref">days</p>
+          </li>
+          <li class="slide-left seperator">:</li>
+          <li class="slide-bottom"> <span class="hours">00</span>
+            <p class="hours_ref">hours</p>
+          </li>
+          <li class="slide-bottom seperator">:</li>
+          <li class="slide-top"> <span class="minutes">00</span>
+            <p class="minutes_ref">minutes</p>
+          </li>
+          <li class="slide-top seperator">:</li>
+          <li class="slide-right"> <span class="seconds">00</span>
+            <p class="seconds_ref">seconds</p>
+          </li>
+        </ul>
+        <!-- Countdown end--> 
+      </div>
+    </div>
+  </div>
+</div>
+<!--countdown timer end--> 
+
+<!--features-->
+<section class="features text-center section-spacing"> 
+  <!--container-->
+  <div class="container">
+    <h2>OUR FEATURES</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="slide-left feature"> <img src="img/feature-1.png" data-at2x="img/feature-1@2x.png" alt="feature">
+          <h3>Lorem Ipsum</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, iusto, cupiditate, mollitia harum culpa blanditiis iure nisi.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="slide-top feature"> <img src="img/feature-2.png" data-at2x="img/feature-2@2x.png" alt="feature">
+          <h3>Lorem Ipsum</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, iusto, cupiditate, mollitia harum culpa blanditiis iure nisi.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="slide-right feature"> <img src="img/feature-3.png" data-at2x="img/feature-3@2x.png" alt="feature">
+          <h3>Lorem Ipsum</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, iusto, cupiditate, mollitia harum culpa blanditiis iure nisi.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--container end--> 
+</section>
+<!--features end--> 
+
+<!--counter-->
+<div class="counter text-center">
+  <div class="overlay"></div>
+  <!--container-->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3 col-xs-6"> <i class="fa fa-users fa-3x"></i>
+        <h3 class="total-number-1">0</h3>
+        <p>Registered users</p>
+      </div>
+      <div class="col-sm-3 col-xs-6"> <i class="fa fa-thumbs-up fa-3x"></i>
+        <h3 class="total-number-2">0</h3>
+        <p>Facebook Fans</p>
+      </div>
+      <div class="col-sm-3 col-xs-6"> <i class="fa fa-smile-o fa-3x"></i>
+        <h3 class="total-number-3">0</h3>
+        <p>Talking About This</p>
+      </div>
+      <div class="col-sm-3 col-xs-6"> <i class="fa fa-heart fa-3x"></i>
+        <h3 class="total-number-4">0</h3>
+        <p>Subscribed Users</p>
+      </div>
+    </div>
+  </div>
+  <!--container end--> 
+</div>
+<!--counter end--> 
+
+<!-- contact-->
+<section class="contact section-spacing" id="contact">
+  <h2 class="text-center">CONTACT US</h2>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 center-block"> 
+        
+        <!--contact form-->
+        
+        <div class="contact-form">
+          <div class="success-sf">
+            <p>Thank You! Your message has been sent.</p>
+          </div>
+          <div class="error-sf">
+            <p>Something went wrong, try refreshing and submitting the form again.</p>
+          </div>
+          <form role="form" action="php/process.php" method="post" id="contact-form">
+            <div class="form-group">
+              <input type="text" class="slide-left form-control" name="name" id="name-s" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="slide-left form-control" name="email" id="email-s" placeholder="Email Address" required>
+            </div>
+            <div class="form-group text-area">
+              <textarea class="slide-right form-control" name="message" id="message-s" rows="4" placeholder="Enter Your Message" required></textarea>
+            </div>
+            <button type="submit" class="slide-right btn button" id="submit-btn-s">SEND </button>
+          </form>
+          
+          <!--contact form end--> 
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="scroll-top"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
+</section>
+<!-- contact end--> 
+
+<!--footer-->
+<footer class="site-footer text-center"> 
+  <!--container-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12"> 
+        
+        <!--Social media-->
+        <ul class="social-footer">
+          <li class="slide-left"><a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+          <li class="slide-top"><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+          <li class="slide-top"><a href="https://plus.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+          <li class="slide-right"><a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+        <!--Social media end--> 
+        
+        <small class="slide-top">&copy; <span class="bold">Beta</span> 2014.</small></div>
+    </div>
+  </div>
+  <!--container end--> 
+  
+</footer>
+<!--footer end--> 
+
+<!--PRELOAD-->
+<div id="preloader">
+  <div id="status"></div>
+</div>
+<!--end PRELOAD--> 
+
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script> 
+<script src="{% static 'js/retina.min.js' %}"></script> 
+<script src="{% static 'js/waypoints.min.js' %}"></script> 
+<script src="{% static 'js/jquery.animateNumber.min.js' %}"></script> 
+<script src="{% static 'js/jquery.fadethis.min.js' %}"></script> 
+<script src="{% static 'js/jquery.downCount.js' %}"></script> 
+<script src="{% static 'js/jquery.form.min.js' %}"></script> 
+<script src="{% static 'js/jquery.validate.min.js' %}"></script> 
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
