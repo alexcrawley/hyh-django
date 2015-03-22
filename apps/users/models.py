@@ -49,3 +49,7 @@ class User(AbstractUser):
     def disliked_events(self):
         return self.events.filter(
             user_responses__response=events_constants.DISLIKE)
+
+
+class Organiser(models.Model):
+    company_name = models.CharField(max_length=256)
