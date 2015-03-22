@@ -3,7 +3,7 @@ from operator import xor
 
 from django.core.exceptions import ValidationError
 
-from apps.common import models
+from apps.common import models, fields
 from apps.experiments import constants
 
 
@@ -64,7 +64,8 @@ class Experiment(models.ValidateModel):
     name = models.CharField(max_length=128)
     description = models.TextField(default="", blank=True, null=True)
 
-    population_percentage = models.IntegerField()
+    population_percentage = fields.IntegerRangeField(
+        min_value=0, max_value=100)
 
     objects = ExperimentManager()
 
