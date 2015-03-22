@@ -17,6 +17,6 @@ create_demo_data:
 
 rebuild_full: update_virtualenv remove_db create_db create_demo_data
 
-rebuild: remove_pyc remove_orig remove_db create_db create_demo_data
+rebuild: remove_db create_db create_demo_data
 
 install: rebuild_full
