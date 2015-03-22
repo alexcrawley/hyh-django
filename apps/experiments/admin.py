@@ -3,6 +3,10 @@ from django.contrib import admin
 from apps.experiments.models import Experiment, TestGroup
 
 
+class TestGroupAdmin(admin.ModelAdmin):
+    model = TestGroup
+
+
 class TestGroupInline(admin.TabularInline):
     model = TestGroup
     readonly_fields = ['num_users']
@@ -29,3 +33,4 @@ class ExperimentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Experiment, ExperimentAdmin)
+admin.site.register(TestGroup, TestGroupAdmin)

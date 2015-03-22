@@ -2,7 +2,6 @@ from rest_framework import serializers
 
 from apps.events.models import Event, EventUserResponse
 from apps.events import constants
-from apps.users.models import User
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,9 +17,15 @@ class EventUserResponseSerializer(serializers.ModelSerializer):
         model = EventUserResponse
         fields = ('id', 'user', 'event', 'response',)
 
+
+class CreateEventUserResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventUserResponse
+        fields = ('id', 'user', 'event', 'response',)
+
     def create(self, validated_data):
-        user = User.objects.get(pk=validated_data['user'])
-        event = Event.objects.get(pk=validated_data['event']['pk'])
+        user = validated_data['user']
+        event = validated_data['event']
         response = validated_data['response']
 
         if response == constants.LIKE:

@@ -102,7 +102,11 @@ class TestUserEventResponses(TestCase):
             {
                 "id": user1_event.pk,
                 "user": self.regular_user1.pk,
-                "event": self.event1.pk,
+                "event": {
+                    'id': self.event1.pk,
+                    'title': self.event1.title,
+                    'img': self.event1.img
+                    },
                 "response": constants.LIKE
             },
         ]
@@ -134,13 +138,21 @@ class TestUserEventResponses(TestCase):
             {
                 "id": user1_event.pk,
                 "user": self.regular_user1.pk,
-                "event": self.event1.pk,
+                "event": {
+                    'id': self.event1.pk,
+                    'title': self.event1.title,
+                    'img': self.event1.img
+                    },
                 "response": constants.LIKE
             },
             {
                 "id": user2_event.pk,
                 "user": self.regular_user2.pk,
-                "event": self.event1.pk,
+                "event": {
+                    'id': self.event1.pk,
+                    'title': self.event1.title,
+                    'img': self.event1.img
+                    },
                 "response": constants.LIKE
             },
         ]

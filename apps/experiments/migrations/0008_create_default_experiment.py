@@ -9,7 +9,7 @@ from apps.experiments import constants
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('experiments', '0003_auto_20150317_2304'),
+        ('experiments', '0007_auto_20150322_1832'),
     ]
 
     def create_default_experiment(apps, schema_editor):
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             population_percentage=100,
             )
 
-        TestGroup.objects.create(
+        test_group = TestGroup.objects.create(
             experiment=experiment,
             algorithm=constants.DEFAULT_EVENTS_ALGORITHM,
             )
@@ -31,4 +31,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(create_default_experiment),
     ]
-

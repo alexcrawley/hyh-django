@@ -27,12 +27,11 @@ class ExperimentManager(models.Manager):
                 experiment = None
         finally:
             if experiment is None:
-                return Experiment.objects.get_fallback(
-                    user, experiment_type)
+                return Experiment.objects.get_fallback(experiment_type)
             else:
                 return experiment
 
-    def get_fallback(self, user, experiment_type):
+    def get_fallback(self, experiment_type):
         return Experiment.objects.get(
             active_status=constants.FALLBACK,
             experiment_type=experiment_type
@@ -73,7 +72,7 @@ class Experiment(models.ValidateModel):
         return self.experiment_type + ' - ' + self.name
 
     def clean(self):
-        # Check only
+        # Check only one active experiment.
         this_experiment_active = self.active_status == constants.ACTIVE
         other_experiment_active = Experiment.objects.filter(
             experiment_type=self.experiment_type,
@@ -84,7 +83,6 @@ class Experiment(models.ValidateModel):
             raise ValidationError(
                 {'active_status': constants.EXPERIMENT_ALREADY_ACTIVE})
 
-        # Check there is only one fallback experiment for this type.
         this_experiment_fallback = self.active_status == constants.FALLBACK
         other_experiment_fallback = Experiment.objects.filter(
             experiment_type=self.experiment_type,
@@ -96,6 +94,7 @@ class Experiment(models.ValidateModel):
             raise ValidationError(
                 {'active_status': constants.EXPERIMENT_FALLBACK_REQUIRED})
 
+        # Check there is only one fallback experiment for this type.
         if not xor(this_experiment_fallback, other_experiment_fallback):
             raise ValidationError(
                 {'active_status': constants.EXPERIMENT_FALLBACK_ALREADY_EXISTS}
@@ -149,3 +148,6 @@ class TestGroup(models.Model):
     num_users = models.IntegerField(default=0)  # Denormalised for speed.
 
     objects = TestGroupManager()
+
+    def __unicode__(self):
+        return self.algorithm + ': ' + str(self.num_users) + ' users'

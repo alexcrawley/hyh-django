@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-
+from apps.common import constants
 from apps.events.models import Event, EventUserResponse
 from apps.events import serializers
 
@@ -19,8 +19,14 @@ class EventViewSet(viewsets.ModelViewSet):
 
 class EventUserResponseViewSet(viewsets.ModelViewSet):
     queryset = EventUserResponse.objects.all()
-    serializer_class = serializers.EventUserResponseSerializer
     paginate_by_param = 'page_size'
+
+    def get_serializer_class(self, *args, **kwargs):
+        if self.action == constants.CREATE:
+            # Just require event pk rather than dict.
+            return serializers.CreateEventUserResponseSerializer
+        else:
+            return serializers.EventUserResponseSerializer
 
     def get_queryset(self):
         queryset = super(EventUserResponseViewSet, self).get_queryset()

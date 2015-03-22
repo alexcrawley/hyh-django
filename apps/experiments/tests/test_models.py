@@ -3,9 +3,10 @@ from django.core.exceptions import ValidationError
 
 from apps.experiments.models import Experiment
 from apps.experiments import constants
+from apps.users.models import User
 
 
-class TestExperimentModel(TestCase):
+class TestExperimentModelValidation(TestCase):
     def test_only_one_fallback_experiment_permitted(self):
         # DEFAULT EVENTS EXPERIMENT ALREADY CREATED IN MIGRATIONS.
         try:
@@ -90,12 +91,37 @@ class TestExperimentModel(TestCase):
             constants.EXPERIMENT_ALREADY_ACTIVE)
 
 
-class TestExperimentMigrations(TestCase):
-    def test_fallback_experiment_created(self):
-        self.assertTrue(
-            Experiment.objects.filter(
-                experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT,
-                active_status=constants.FALLBACK,
-                population_percentage=100
-                ).exists()
+class TestExperimentManager(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='regular_user1@example.com',
+            email='regular_user1@example.com',
+            password='testing'
             )
+
+        self.fallback_experiment = Experiment.objects.get(
+            experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT,
+            active_status=constants.FALLBACK,
+            )
+
+    def test_get_fallback(self):
+        self.assertEqual(
+            Experiment.objects.get_fallback(
+                experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT
+                ),
+            self.fallback_experiment
+            )
+
+
+class TestExperimentMigrations(TestCase):
+    def test_fallback_experiment_and_test_group_created(self):
+        fallback_experiment = Experiment.objects.get(
+            experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT,
+            active_status=constants.FALLBACK,
+            population_percentage=100
+            )
+
+        self.assertTrue(bool(fallback_experiment.pk))
+
+        # Fallback experiment has a test group.
+        self.assertEqual(fallback_experiment.test_groups.count(), 1)
