@@ -14,3 +14,4 @@ tags
 /shopify
 *.sqlite3
 py27env
+.coverage
