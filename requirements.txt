@@ -6,6 +6,7 @@ dj-static==0.0.6
 django-cors-headers==1.0.0
 django-debug-toolbar==1.2.2
 django-extensions==1.5.0
+-e git+https://github.com/spookylukey/django-money/@c9ceb7865de864164ea027b9bbacd8ca55dc38fb#egg=django_money-master
 django-suit==0.2.12
 django-toolbelt==0.0.1
 djangorestframework==3.0.5
@@ -15,8 +16,10 @@ ipdb==0.8
 ipython==2.4.1
 mailchimp==2.0.9
 psycopg2==2.6
+py-moneyed==0.5.0
 requests==2.6.0
 six==1.9.0
 sqlparse==0.1.14
 static3==0.5.1
+stripe==1.21.0
 wsgiref==0.1.2

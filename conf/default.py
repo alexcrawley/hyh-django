@@ -1,12 +1,4 @@
-"""
-Django settings for hellodjango project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
-"""
+#-*- coding: utf-8 -*-
 
 import os
 
@@ -87,9 +79,10 @@ INSTALLED_APPS = (
     # Rest framework
     'rest_framework',
     'rest_framework.authtoken',
-    'mailchimp',
 
     # Other 3rd party
+    'mailchimp',
+    'djmoney',
     'corsheaders',
 
     # haveyouheard
@@ -133,3 +126,27 @@ AUTH_USER_MODEL = 'users.User'
 # Production key, but test list.
 MAILCHIMP_API_KEY = '2e175c4f1d007c9a1750e2d7993eb626-us10'
 MAILCHIMP_MAIN_LIST_ID = '075d485454'
+
+
+## Currency
+import moneyed
+from moneyed.localization import _FORMATTER, DEFAULT
+
+DEFAULT_CURRENCY_CODE = 'GBP'
+GBP_CHOICE_TUPLE = [(DEFAULT_CURRENCY_CODE, "Pound Sterling")]
+
+_FORMATTER.add_sign_definition(DEFAULT, moneyed.GBP, prefix=u"£")
+_FORMATTER.add_sign_definition(DEFAULT, moneyed.USD, prefix=u"$")
+_FORMATTER.add_sign_definition(DEFAULT, moneyed.AUD, prefix=u"A$")
+_FORMATTER.add_sign_definition(DEFAULT, moneyed.EUR, prefix=u"€")
+
+CURRENCIES = [
+    'GBP',
+    'USD',
+    'AUD',
+    'EUR',
+]
+
+CURRENCY_CHOICES = [
+    (DEFAULT_CURRENCY_CODE, moneyed.get_currency(DEFAULT_CURRENCY_CODE).name),
+]
