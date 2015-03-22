@@ -1,6 +1,9 @@
 import random
-from django.db import models
+from operator import xor
 
+from django.core.exceptions import ValidationError
+
+from apps.common import models
 from apps.experiments import constants
 
 
@@ -11,7 +14,7 @@ class ExperimentManager(models.Manager):
         """
         try:
             experiment = Experiment.objects.get(
-                active_status=constants.ACTIVE_STATUS,
+                active_status=constants.ACTIVE,
                 experiment_type=experiment_type
                 )
         except Experiment.DoesNotExist:
@@ -35,15 +38,20 @@ class ExperimentManager(models.Manager):
             experiment_type=experiment_type
             )
 
+    def events(self):
+        return Experiment.objects.filter(
+            experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT
+            )
 
-class Experiment(models.Model):
+
+class Experiment(models.ValidateModel):
     EXPERIMENT_TYPES = (
         (constants.EVENTS_ALGORITHM_EXPERIMENT, 'Compare events algorithms.'),
         )
 
     ACTIVE_STATUS = (
-        (constants.ACTIVE_STATUS, 'Active'),
-        (constants.INACTIVE_STATUS, 'Inactive'),
+        (constants.ACTIVE, 'Active'),
+        (constants.INACTIVE, 'Inactive'),
         (constants.FALLBACK, 'Fallback'),
         )
 
@@ -53,7 +61,7 @@ class Experiment(models.Model):
     active_status = models.CharField(
         choices=ACTIVE_STATUS, max_length=128)
 
-    name = models.CharField(primary_key=True, max_length=128)
+    name = models.CharField(max_length=128)
     description = models.TextField(default="", blank=True, null=True)
 
     population_percentage = models.IntegerField()
@@ -62,6 +70,41 @@ class Experiment(models.Model):
 
     def __unicode__(self):
         return self.experiment_type + ' - ' + self.name
+
+    def clean(self):
+        # Check only
+        this_experiment_active = self.active_status == constants.ACTIVE
+        other_experiment_active = Experiment.objects.filter(
+            experiment_type=self.experiment_type,
+            active_status=constants.ACTIVE
+            ).exclude(pk=self.pk).exists()
+
+        if this_experiment_active and other_experiment_active:
+            raise ValidationError(
+                {'active_status': constants.EXPERIMENT_ALREADY_ACTIVE})
+
+        # Check there is only one fallback experiment for this type.
+        this_experiment_fallback = self.active_status == constants.FALLBACK
+        other_experiment_fallback = Experiment.objects.filter(
+            experiment_type=self.experiment_type,
+            active_status=constants.FALLBACK
+            ).exclude(pk=self.pk).exists()
+
+        # Check only one experiment is fallback.
+        if not (this_experiment_fallback or other_experiment_fallback):
+            raise ValidationError(
+                {'active_status': constants.EXPERIMENT_FALLBACK_REQUIRED})
+
+        if not xor(this_experiment_fallback, other_experiment_fallback):
+            raise ValidationError(
+                {'active_status': constants.EXPERIMENT_FALLBACK_ALREADY_EXISTS}
+                )
+
+        # If this is fallback, require 100% population.
+        if this_experiment_fallback and not self.population_percentage == 100:
+            error_message = constants.EXPERIMENT_FALLBACK_100_PERCENT
+            raise ValidationError(
+                {'population_percentage': error_message})
 
     def get_next_test_group(self):
         return self.test_groups.order_by('-num_users')[0]
