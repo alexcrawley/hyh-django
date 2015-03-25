@@ -1,10 +1,10 @@
 from django.test import TestCase
 
 from apps.users.models import User
-from apps.events.models import Event
+from apps.events.tests.mixins import EventsTestMixin
 
 
-class TestUserModel(TestCase):
+class TestUserModel(TestCase, EventsTestMixin):
 
     def setUp(self):
         self.user = User.objects.create(username='testing', password='testing')
@@ -12,8 +12,7 @@ class TestUserModel(TestCase):
     def test_like_event(self):
         self.assertItemsEqual(self.user.liked_events, [])
 
-        event = Event.objects.create(
-            title='I like it!', img='Great picture!')
+        event = self.create_event()
 
         self.user.like_event(event)
 
@@ -23,8 +22,9 @@ class TestUserModel(TestCase):
     def test_dislike_event(self):
         self.assertItemsEqual(self.user.disliked_events, [])
 
-        event = Event.objects.create(
-            title='I hate it!', img='Horrible picture!')
+        update_kwargs = dict(title='I hate it!', img='Horrible picture!')
+
+        event = self.create_event(**update_kwargs)
 
         self.user.dislike_event(event)
 

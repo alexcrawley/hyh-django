@@ -1,3 +1,4 @@
+# So can import as from apps.common import models
 from django.db.models import *
 
 

@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 
 from apps.common import models, fields
 from apps.experiments import constants
+from apps.experiments.model_services import ExperimentServices
 
 
 class ExperimentManager(models.Manager):
@@ -43,7 +44,7 @@ class ExperimentManager(models.Manager):
             )
 
 
-class Experiment(models.ValidateModel):
+class Experiment(models.ValidateModel, ExperimentServices):
     EXPERIMENT_TYPES = (
         (constants.EVENTS_ALGORITHM_EXPERIMENT, 'Compare events algorithms.'),
         )
@@ -105,9 +106,6 @@ class Experiment(models.ValidateModel):
             error_message = constants.EXPERIMENT_FALLBACK_100_PERCENT
             raise ValidationError(
                 {'population_percentage': error_message})
-
-    def get_next_test_group(self):
-        return self.test_groups.order_by('-num_users')[0]
 
 
 class TestGroupManager(models.Manager):

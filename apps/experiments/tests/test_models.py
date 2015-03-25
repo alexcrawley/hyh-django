@@ -3,19 +3,15 @@ from django.core.exceptions import ValidationError
 
 from apps.experiments.models import Experiment
 from apps.experiments import constants
+from apps.experiments.tests.mixins import ExperimentsTestMixin
 from apps.users.models import User
 
 
-class TestExperimentModelValidation(TestCase):
+class TestExperimentModelValidation(TestCase, ExperimentsTestMixin):
     def test_only_one_fallback_experiment_permitted(self):
         # DEFAULT EVENTS EXPERIMENT ALREADY CREATED IN MIGRATIONS.
         try:
-            Experiment.objects.create(
-                experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT,
-                active_status=constants.FALLBACK,
-                name='Fallback2',
-                population_percentage=100
-                )
+            self.create_fallback_experiment()
         except ValidationError as e:
             error_dict = e.error_dict
         else:
@@ -67,20 +63,11 @@ class TestExperimentModelValidation(TestCase):
 
     def test_only_one_active_experiment_permitted(self):
         # Create one active experiment
-        Experiment.objects.create(
-            experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT,
-            active_status=constants.ACTIVE,
-            name='Active1',
-            population_percentage=50
-            )
+        self.create_active_experiment(**dict(name='Active1'))
 
+        # Try and create another.
         try:
-            Experiment.objects.create(
-                experiment_type=constants.EVENTS_ALGORITHM_EXPERIMENT,
-                active_status=constants.ACTIVE,
-                name='Active2',
-                population_percentage=50
-                )
+            self.create_active_experiment(**dict(name='Active2'))
         except ValidationError as e:
             error_dict = e.error_dict
         else:

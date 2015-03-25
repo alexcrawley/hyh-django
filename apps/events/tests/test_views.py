@@ -5,14 +5,17 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from apps.events import constants
-from apps.events.models import Event, EventUserResponse
+from apps.events.models import EventUserResponse
+from apps.events.tests.mixins import EventsTestMixin
 from apps.users.models import User
 
 
-class TestUserEventResponses(TestCase):
+class TestUserEventResponses(TestCase, EventsTestMixin):
 
     def setUp(self):
         self.client = APIClient()
+
+        self.event1 = self.create_event()
 
         self.regular_user1 = User.objects.create_user(
             username='regular_user1@example.com',
@@ -31,9 +34,6 @@ class TestUserEventResponses(TestCase):
             email='superuser@example.com',
             password='testing'
             )
-
-        self.event1 = Event.objects.create(
-            title='I like it!', img='Great picture!')
 
     def test_regular_users_can_only_create_responses_for_themselves(self):
         # Authenticate the request for regular_user1, but try and post with
