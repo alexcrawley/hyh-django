@@ -39,12 +39,12 @@ class Command(BaseCommand):
             img='http://www.mathforgrownups.com/wp-content/uploads/2012/06/firework.jpg.pagespeed.ce.Fh58gK_YoW.jpg'
             )
         Event.objects.create(
-            organiser,
+            organiser=organiser,
             title='Fine dining..',
             img='http://www.tablespoon.com/~/media/Images/Articles/qd/2011/07/2011-07-25-monster-veggie-burger-500.jpg'
             )
         Event.objects.create(
-            organiser,
+            organiser=organiser,
             title='Rooftop cinema?',
             img='http://1.bp.blogspot.com/-2SzFzltjliM/Ua8oFQuBviI/AAAAAAAAADM/w7mOBWrbT-8/s1600/RooftopFilmClub.jpg'
             )
