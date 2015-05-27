@@ -44,7 +44,14 @@ class UserEventService(object):
             user_responses__response=events_constants.DISLIKE)
 
 
-class UserServices(UserEventService):
+class UserTicketService(object):
+    """ Encapsulate services relating users and tickets.
+    """
+    def get_tickets(self):
+        return self.tickets.all()
+
+
+class UserServices(UserEventService, UserTicketService):
     """ Container for all user service mixins.
     """
     pass
