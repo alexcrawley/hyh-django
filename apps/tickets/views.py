@@ -22,3 +22,13 @@ class TicketViewSet(viewsets.ModelViewSet):
             return serializers.CreateTicketSerializer
         else:
             return serializers.TicketSerializer
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+
+        if not user.is_superuser:
+            # Users should only be able to create responses for
+            # themselves.
+            self.request.data.update(**{'user': user.pk})
+
+        return super(TicketViewSet, self).create(request, *args, **kwargs)

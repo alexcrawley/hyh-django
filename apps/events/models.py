@@ -4,7 +4,6 @@ from apps.events.constants import LIKE, DISLIKE
 
 
 class Event(models.Model):
-    organiser = models.ForeignKey('users.Organiser')
     title = models.CharField(max_length=256)
     img = models.CharField(max_length=256)
 

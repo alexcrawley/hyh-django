@@ -3,10 +3,11 @@ from rest_framework import serializers
 from apps.tickets.models import Ticket
 
 
-class TicketSerializer(serializers.ModelSerializer):
+class TicketSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        fields = ('id', 'event', 'quantity', 'user')
+        fields = ('id', 'event', 'quantity',)
         model = Ticket
+        depth = 1
 
 
 class CreateTicketSerializer(serializers.ModelSerializer):
