@@ -79,6 +79,7 @@ INSTALLED_APPS = (
     # Rest framework
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 
     # Other 3rd party
     'mailchimp',
@@ -116,7 +117,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'PAGINATE_BY': 10,
+    'PAGINATE_BY': 20,
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

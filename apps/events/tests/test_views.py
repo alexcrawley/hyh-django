@@ -136,16 +136,6 @@ class TestUserEventResponses(TestCase, EventsTestMixin):
 
         expected_reponse_data = [
             {
-                "id": user1_event.pk,
-                "user": self.regular_user1.pk,
-                "event": {
-                    'id': self.event1.pk,
-                    'title': self.event1.title,
-                    'img': self.event1.img
-                    },
-                "response": constants.LIKE
-            },
-            {
                 "id": user2_event.pk,
                 "user": self.regular_user2.pk,
                 "event": {
@@ -155,6 +145,16 @@ class TestUserEventResponses(TestCase, EventsTestMixin):
                     },
                 "response": constants.LIKE
             },
+            {
+                "id": user1_event.pk,
+                "user": self.regular_user1.pk,
+                "event": {
+                    'id': self.event1.pk,
+                    'title': self.event1.title,
+                    'img': self.event1.img
+                    },
+                "response": constants.LIKE
+            }
         ]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

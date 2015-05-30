@@ -18,8 +18,9 @@ class EventViewSet(viewsets.ModelViewSet):
 
 
 class EventUserResponseViewSet(viewsets.ModelViewSet):
-    queryset = EventUserResponse.objects.all()
+    queryset = EventUserResponse.objects.all().order_by('-created_at')
     paginate_by_param = 'page_size'
+    filter_fields = ('response',)
 
     def get_serializer_class(self, *args, **kwargs):
         if self.action == constants.CREATE:

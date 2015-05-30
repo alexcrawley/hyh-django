@@ -7,10 +7,7 @@ class EventsTestMixin(object):
         return Organiser.objects.create(company_name='Test Organiser')
 
     def create_event(self, **kwargs):
-        organiser = self.create_organiser()
-
         event_dict = dict(
-            organiser=organiser,
             title='I like it!',
             img='Great picture!'
         )
