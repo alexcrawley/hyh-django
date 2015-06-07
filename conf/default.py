@@ -125,11 +125,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'users.User'
 
-# Production key, but test list.
-MAILCHIMP_API_KEY = '2e175c4f1d007c9a1750e2d7993eb626-us10'
-MAILCHIMP_MAIN_LIST_ID = '075d485454'
-
-
 ## Currency
 import moneyed
 from moneyed.localization import _FORMATTER, DEFAULT
@@ -152,3 +147,15 @@ CURRENCIES = [
 CURRENCY_CHOICES = [
     (DEFAULT_CURRENCY_CODE, moneyed.get_currency(DEFAULT_CURRENCY_CODE).name),
 ]
+
+# API SETTINGS AND CREDENTIALS
+#--------------------------------------------------------
+
+# Production key, but test list.
+MAILCHIMP_API_KEY = '2e175c4f1d007c9a1750e2d7993eb626-us10'
+MAILCHIMP_MAIN_LIST_ID = '075d485454'
+
+TICKET_EVOLUTION_TOKEN = 'bdb802b503ff68f0072b95f35f3f2fa5'
+TICKET_EVOLUTION_SECRET = 'efDpKWr6yeUH20FnMLgY5IHdKpteoK+g4UzCgDRr'
+TICKET_EVOLUTION_USE_SANDBOX = True
+TICKET_EVOLUTION_URL_PREFIX = '/v9'
