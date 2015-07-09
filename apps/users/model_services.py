@@ -9,7 +9,7 @@ from apps.experiments.event_algorithms import algorithms
 
 
 class UserEventService(object):
-    """ Encapsulate services relating users and event.
+    """ Encapsulate services relating users and events.
     """
     def get_events(self):
         test_group = TestGroup.objects.get_for_experiment(

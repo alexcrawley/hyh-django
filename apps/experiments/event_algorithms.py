@@ -2,7 +2,12 @@ from apps.experiments import constants
 from apps.events.models import Event
 
 
-class RandomEvents(object):
+class BaseEventsAlgorithm(object):
+    def get_events_for_user(self, user, quantity=None):
+        raise NotImplementedError()
+
+
+class RandomEvents(BaseEventsAlgorithm):
     def get_events_for_user(self, user, quantity=None):
         events = Event.objects.order_by('?')
 
